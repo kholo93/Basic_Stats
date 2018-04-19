@@ -21,7 +21,7 @@ descdist(y, discrete = FALSE)
 
 # Chapter 6 ---------------------------------------------------------------
 
-# Inderences about one or two populations ---------------------------------
+# Inferences about one or two populations ---------------------------------
 #tTest you can use when you have a basic hypothesis
 #tTest when you are compering 2 thing and Anova when comparing more than 2 things
 #The script 
