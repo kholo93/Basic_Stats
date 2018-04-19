@@ -7,7 +7,6 @@
 #doing the t-test to remind out selves
 
 library(tidyverse)
-library(ggplot2)
 
 
 # t-test ------------------------------------------------------------------
@@ -84,15 +83,16 @@ chicks_Tukey <- as.data.frame(TukeyHSD(aov(weight ~ Diet, data = chicks_21))$Die
 chicks_Tukey$pair <- as.factor(row.names(chicks_Tukey))
 
 ggplot(data = chicks_Tukey) +
-  geom_segment(aes(x = pairs, xend = pairs, y = lwr, yend = upr)) +
+  geom_segment(aes(x = pair, xend = pair, y = lwr, yend = upr)) +
+  geom_errorbar(aes(x = pair, ymin = lwr, ymax = upr)) +
   geom_hline(aes(yintercept = 0), colour = "red", linetype = "dashed") + 
   coord_flip()
-(#Don't know how to automatically pick scale for object of type function. 
+#Don't know how to automatically pick scale for object of type function. 
 #Defaulting to continuous.Error in (function (..., row.names = NULL, check.rows = FALSE, check.names = TRUE,  
 #: arguments imply differing number of rows: 0, 6) 
-  This is what I get when running the above code, and I am not show what to do.   
-
-#geom_errorbar(aes(x = pairs, ymin = lwr, ymax = upr))
+  #This is what I get when running the above code, and I am not show what to do.  
+    # RWS: You had named your column "pair" not "pairs", which is what you were telling ggplot2 to look for
+    # Just that one little extra "s" was the issue
 
 # or juyst plot confidence intervals the base R way...
 #shame
@@ -109,7 +109,7 @@ chicks_1_21 <- ChickWeight %>%
   filter(Time %in% c(0,21))
 
 #Vituatiise the data
-ggplot(data = chicks_1_21, aes(x = Time, y = weight))+
+ggplot(data = chicks_1_21, aes(x = as.factor(Time), y = weight))+
   geom_boxplot(notch = T, aes(fill = as.factor(Time)))
 
 #Run an ANOVA
