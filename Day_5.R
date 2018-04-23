@@ -7,7 +7,7 @@
 # Load Library ------------------------------------------------------------
 
 library(tidyverse)
-library(Rmisc)
+# library(Rmisc) # Unfortunately this overrides many dplyr functions
 
 # Load Data ---------------------------------------------------------------
 
@@ -40,7 +40,7 @@ snakes$day <- as.factor(snakes$day)
 # Test a hypothesis -------------------------------------------------------
 
 #First calculate the SE and CI
-snakes.summary2 <- summarySE(data = snakes,
+snakes.summary2 <- Rmisc::summarySE(data = snakes,
                              measurevar = "openings",
                              groupvars = c("day"))
 #The visualise it
@@ -137,7 +137,7 @@ plt3 <- ggplot(moths, aes(x = Location, y = count)) +
 
 library(ggpubr)
 
-ggarrange(plt1, plt2, plt3, labels = "AUTO",ncol = 2, nrow = 3)
+ggarrange(plt1, plt2, plt3, labels = "AUTO", ncol = 1, nrow = 3)
 
 
 # END OF THE Excercise -------------------------------------------------------------
